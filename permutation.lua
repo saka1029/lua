@@ -20,7 +20,7 @@ function permutation_recursive_callback(n, k, callback)
     local used = array_new(n, false)
     local function solve(i)
         if i > k then
-            callback({table.unpack(result)})
+            callback(result)
         else
             for j = 1, n do
                 if not used[j] then
