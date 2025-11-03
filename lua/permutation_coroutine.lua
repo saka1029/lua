@@ -22,6 +22,15 @@ function array_print(a)
     print(string.sub(s, 2))
 end
 
+function array_string(a) 
+    if a == nil then return "nil" end
+    local s = "";
+    for _, v in pairs(a) do
+        s = s .. " " .. v
+    end
+    return "[" .. string.sub(s, 2) .. "]"
+end
+
 function permgen(a, n)
     if n == 0 then
         coroutine.yield(a)
@@ -107,6 +116,7 @@ function permutation_coroutine(n, k)
         end)
     return function()
         local codes, res = coroutine.resume(co)
+        print(tostring(codes) .. array_string(res))
         return res
     end
 end
