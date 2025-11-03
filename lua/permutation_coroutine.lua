@@ -79,3 +79,39 @@ print("permutation_recursive_coroutine")
 for i in permutation_recursive_coroutine(3,3) do
     array_print(i)
 end
+
+function permutation_coroutine_body(n, k)
+    local result = array_new(k, 0)
+    local used = array_new(n, false)
+    function solve(i)
+        if i > k then
+            coroutine.yield(result)
+        else
+            for j = 1, n do
+                if not used[j] then
+                    used[j] = true
+                    result[i] = j
+                    solve(i + 1)
+                    used[j] = false
+                end
+            end
+        end
+    end
+    solve(1)
+end
+
+function permutation_coroutine(n, k)
+    local co = coroutine.create(
+        function()
+            permutation_coroutine_body(n, k)
+        end)
+    return function()
+        local codes, res = coroutine.resume(co)
+        return res
+    end
+end
+
+print("permutation_coroutine")
+for i in permutation_coroutine(3,3) do
+    array_print(i)
+end
