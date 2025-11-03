@@ -76,9 +76,9 @@ function permutation_recursive_iterator(n, k)
     local result = array_new(k, 0)
     local used = array_new(n, false)
     return function() 
-        print("iterator")
+--      print("iterator")
         local function solve(i)
-            print("sove(" .. i .. ")")
+--          print("sove(" .. i .. ")")
             if i > k then
                 local r = {table.unpack(result)}
                 array_print(r)
@@ -103,3 +103,30 @@ for a in permutation_recursive_iterator(3, 3) do
     print(a)
     array_print(a)
 end
+
+function array_iota(n)
+    local a = {}
+    for i = 1, n do
+        table.insert(a, i)
+    end
+    return a
+end
+
+function permutation_recursive_swap_body(a, n, callback)
+    if n == 0 then
+        callback(a)
+    else
+        for i = 1, n do
+            a[n], a[i] = a[i], a[n]
+            permutation_recursive_swap_body(a, n - 1, callback)
+            a[n], a[i] = a[i], a[n]
+        end
+    end
+end
+
+function permutation_recursive_swap(n, k, callback)
+    return permutation_recursive_swap_body(array_iota(n), k, callback)
+end
+
+print("** permutation_recursive_swap **")
+permutation_recursive_swap(3, 3, array_print)
