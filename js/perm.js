@@ -1,8 +1,8 @@
-function * generator() {
-    yield 3
-    yield 1
-    yield 2
-}
-
-for (var i of generator())
-    console.log(i)
+let a = Array(3)
+a[1]=1
+let b = a.concat()
+b[0]=0
+let c = Array(4).fill(false)
+console.log("a=" + a)
+console.log("b=" + b)
+console.log("c=" + c)
