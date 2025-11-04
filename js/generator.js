@@ -19,7 +19,22 @@ function * fib() {
 console.log("** fib **");
 var c = 0;
 for (var i of fib()) {
-    if (c++ > 100)
+    if (c++ >= 100)
+        break;
+    console.log(i);
+}
+
+function* fact() {
+    var a = 1;
+    for (var i = 2; true; ++i) {
+        yield a;
+        a *= i;
+    }
+}
+console.log("** fact **");
+var c = 0;
+for (var i of fact()) {
+    if (c++ >= 10)
         break;
     console.log(i);
 }
